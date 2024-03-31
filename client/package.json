@@ -35,5 +35,8 @@
             "last 1 safari version"
         ]
     },
-    "proxy": "http://localhost:3000"
+    "proxy": "http://localhost:3000",
+    "devDependencies": {
+        "typescript-plugin-css-modules": "^5.1.0"
+    }
 }

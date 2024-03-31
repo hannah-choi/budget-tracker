@@ -21,6 +21,28 @@ app.post("/transactions", (req: Request, res: Response) => {
     res.send(201).send(newTransactions);
 });
 
+app.delete("/transactions/:id", (req: Request, res: Response) => {
+    const { id } = req.params;
+    const index = transactions.findIndex((transaction) => transaction.id === parseInt(id, 10));
+    if (index <= -1) {
+        res.status(404).send({ message: "Transaction not found" });
+    } else {
+        transactions.splice(index, 1);
+        res.status(204).end();
+    }
+});
+
+app.put("/transactions/:id", (req: Request, res: Response) => {
+    const { id } = req.params;
+    const index = transactions.findIndex((transaction) => transaction.id === parseInt(id, 10));
+    if (index <= -1) {
+        res.status(404).send({ message: "Transaction not found" });
+    }
+    const modified = { ...transactions[index], ...req.body };
+    transactions[index] = modified;
+    res.status(200).send(modified);
+});
+
 app.listen(port, () => {
     console.log(`server is listening on port ${port}`);
 });
