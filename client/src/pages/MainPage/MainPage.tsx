@@ -1,15 +1,21 @@
 import React from "react";
+import { List } from "../../components/List/List";
+import transactions from "../../transactions.json";
 
 type Props = {};
 
 export const MainPage: React.FC<Props> = ({}) => {
+    const modifyHandler = () => {
+        return true;
+    };
+
+    const deleteHandler = () => {
+        return true;
+    };
+
     return (
         <div>
-            <ul>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-            </ul>
+            <List transactions={transactions} modifyHandler={modifyHandler} deleteHandler={deleteHandler} />
         </div>
     );
 };

@@ -1,0 +1,58 @@
+[
+    {
+        "id": 0,
+        "category": "grocery",
+        "amount": 15.0,
+        "description": "cheese, tomato, yogurt",
+        "date": "25th Mar 2024 16:25"
+    },
+    {
+        "id": 1,
+        "category": "transport",
+        "amount": 3.9,
+        "description": "TFL",
+        "date": "26th Mar 2024 00:15"
+    },
+    {
+        "id": 2,
+        "category": "culture",
+        "amount": 13.0,
+        "description": "Book",
+        "date": "26th Mar 2024 17:05"
+    },
+    {
+        "id": 3,
+        "category": "transport",
+        "amount": 3.9,
+        "description": "TFL",
+        "date": "27th Mar 2024 00:10"
+    },
+    {
+        "id": 4,
+        "category": "grocery",
+        "amount": 5.0,
+        "description": "tea",
+        "date": "27th Mar 2024 11:25"
+    },
+    {
+        "id": 5,
+        "category": "culture",
+        "amount": 11.0,
+        "description": "Cinema ticket",
+        "date": "27th Mar 2024 18:35"
+    },
+    {
+        "id": 6,
+        "category": "shopping",
+        "amount": 35.0,
+        "description": "Shirt",
+        "date": "28th Mar 2024 12:45"
+    },
+    {
+        "id": 7,
+        "category": "transport",
+        "amount": 5.4,
+        "description": "TFL",
+        "date": "29th Mar 2024 00:25"
+    }
+]
