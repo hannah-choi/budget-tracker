@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import path from "path";
 import dotenv from "dotenv";
+import cors from "cors";
 import transactions from "./transactions.json";
 
 dotenv.config();
@@ -9,12 +10,14 @@ const app: Express = express();
 const port = process.env.PORT || 8081;
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/transaction", (req: Request, res: Response) => {
     res.status(200).json(transactions);
 });
 
 app.post("/transaction", (req: Request, res: Response) => {
+    console.log(req.body);
     const newTransactions = { id: transactions.length + 1, ...req.body };
     transactions.push(newTransactions);
     res.status(201).send(newTransactions);

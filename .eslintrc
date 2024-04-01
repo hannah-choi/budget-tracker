@@ -8,23 +8,17 @@
         "jest": true
     },
     "root": true,
-    "extends": [
-        "plugin:@typescript-eslint/recommended",
-        "airbnb",
-        "prettier"
-    ],
+    "extends": ["plugin:@typescript-eslint/recommended", "airbnb", "prettier"],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": [
-        "@typescript-eslint", "prettier", "sort-destructure-keys", "sort-keys-fix", "spellcheck"
-    ],
+    "plugins": ["@typescript-eslint", "prettier", "sort-destructure-keys", "sort-keys-fix", "spellcheck"],
     "settings": {
         "import/resolver": {
-          "node": {
-            "extensions": [".js", ".ts"]
-          }
+            "node": {
+                "extensions": [".js", ".ts"]
+            }
         }
     },
     "rules": {

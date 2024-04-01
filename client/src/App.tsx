@@ -3,42 +3,20 @@ import { BrowserRouter, Route, Link, NavLink, Switch } from "react-router-dom";
 import { MainPage } from "./pages/MainPage/MainPage";
 import { Create } from "./pages/Create/Create";
 import { TransactionDetail } from "./pages/TransactionDetail/TransactionDetail";
-import React, { useEffect, useState } from "react";
-import { Transaction } from "./components/List/List";
+import React from "react";
+import { useFetch } from "./hooks/useFetch/useFetch";
 
 function App() {
-    const [transactions, setTransactions] = useState<Transaction[] | null>(null);
-    const [isPending, setIsPending] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        fetch("/transaction")
-            .then((res) => {
-                if (!res.ok) {
-                    throw Error("Response failed");
-                }
-                return res.json();
-            })
-            .then((data) => {
-                setTransactions(data);
-                setIsPending(false);
-                setError(null);
-            })
-            .catch((err) => {
-                const error = err as Error;
-                setIsPending(false);
-                setError(error.message);
-            });
-        // return () => {
-        //     second;
-        // };
-    }, []);
+    const { isPending, error, data: transactions } = useFetch("http://localhost:3001/transaction");
+    if (transactions) {
+        console.log(transactions);
+    }
 
     return (
         <BrowserRouter>
             <header>
                 <nav>
-                    <h1>Budget tracker!!</h1>
+                    <h1>Budget tracker!!!</h1>
                     <NavLink to='/'>Home </NavLink>
                     <NavLink to='create'>Create</NavLink>
                 </nav>
@@ -46,6 +24,7 @@ function App() {
             <main>
                 <Switch>
                     <Route exact path='/'>
+                        {isPending && "Loading..."}
                         {transactions && <MainPage transactions={transactions} />}
                     </Route>
                     <Route path='/create'>
