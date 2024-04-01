@@ -5,23 +5,19 @@ import transactions from "./transactions.json";
 const app: Express = express();
 const port = 3000;
 
-app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(express.json());
 
-app.get("/", (_, res: Response) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+app.get("/transaction", (req: Request, res: Response) => {
+    res.status(200).json(transactions);
 });
 
-app.get("/transactions", (req: Request, res: Response) => {
-    res.json(transactions);
-});
-
-app.post("/transactions", (req: Request, res: Response) => {
+app.post("/transaction", (req: Request, res: Response) => {
     const newTransactions = { id: transactions.length + 1, ...req.body };
     transactions.push(newTransactions);
-    res.send(201).send(newTransactions);
+    res.status(201).send(newTransactions);
 });
 
-app.delete("/transactions/:id", (req: Request, res: Response) => {
+app.delete("/transaction/:id", (req: Request, res: Response) => {
     const { id } = req.params;
     const index = transactions.findIndex((transaction) => transaction.id === parseInt(id, 10));
     if (index <= -1) {
@@ -32,7 +28,7 @@ app.delete("/transactions/:id", (req: Request, res: Response) => {
     }
 });
 
-app.put("/transactions/:id", (req: Request, res: Response) => {
+app.put("/transaction/:id", (req: Request, res: Response) => {
     const { id } = req.params;
     const index = transactions.findIndex((transaction) => transaction.id === parseInt(id, 10));
     if (index <= -1) {
@@ -41,6 +37,13 @@ app.put("/transactions/:id", (req: Request, res: Response) => {
     const modified = { ...transactions[index], ...req.body };
     transactions[index] = modified;
     res.status(200).send(modified);
+});
+
+app.use(express.static(path.join(__dirname, "../client/build")));
+
+// catch-all
+app.get("*", (_, res: Response) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 
 app.listen(port, () => {

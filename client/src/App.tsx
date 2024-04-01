@@ -1,8 +1,10 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, Link, NavLink, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Link, NavLink, Switch } from "react-router-dom";
 import { MainPage } from "./pages/MainPage/MainPage";
 import { Create } from "./pages/Create/Create";
 import { TransactionDetail } from "./pages/TransactionDetail/TransactionDetail";
+import React, { useEffect, useState } from "react";
+import { Transaction } from "./components/List/List";
 
 function App() {
     return (
@@ -22,7 +24,7 @@ function App() {
                     <Route path='/create'>
                         <Create />
                     </Route>
-                    <Route path='/transaction/:id'>
+                    <Route path='/detail/:id'>
                         <TransactionDetail />
                     </Route>
                 </Switch>

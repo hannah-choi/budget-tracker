@@ -1,9 +1,10 @@
 {
     "scripts": {
-        "build": "npx tsc",
+        "build": "tsc",
         "start": "node dist/index.js",
-        "dev": "nodemon server/index.ts",
-        "lint": "eslint '**/*.{ts,tsx,js,jsx}' --fix"
+        "dev": "nodemon",
+        "lint": "eslint '**/*.{ts,tsx,js,jsx}' --fix",
+        "dev:full": "concurrently \"npm run dev\" \"cd ../client && npm start\""
     },
     "dependencies": {
         "@types/express": "^4.17.21",
