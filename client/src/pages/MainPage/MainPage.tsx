@@ -1,10 +1,9 @@
 import React from "react";
-import { List } from "../../components/List/List";
-import transactions from "../../transactions.json";
+import { List, Transaction } from "../../components/List/List";
 
-type Props = {};
+type Props = { transactions: Transaction[] };
 
-export const MainPage: React.FC<Props> = ({}) => {
+export const MainPage: React.FC<Props> = ({ transactions }) => {
     const modifyHandler = () => {
         return true;
     };

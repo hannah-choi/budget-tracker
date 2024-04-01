@@ -20,7 +20,7 @@ export const List: React.FC<Props> = ({ transactions, deleteHandler, modifyHandl
     return (
         <ul>
             {transactions.map((transaction) => (
-                <Link to={`/transaction/${transaction.id}`}>
+                <Link to={`/detail/${transaction.id}`}>
                     <ListItem transaction={transaction} deleteHandler={deleteHandler} modifyHandler={modifyHandler} />
                 </Link>
             ))}

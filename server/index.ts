@@ -1,9 +1,12 @@
 import express, { Express, Request, Response } from "express";
 import path from "path";
+import dotenv from "dotenv";
 import transactions from "./transactions.json";
 
+dotenv.config();
+
 const app: Express = express();
-const port = 3000;
+const port = process.env.PORT || 8081;
 
 app.use(express.json());
 
@@ -39,12 +42,14 @@ app.put("/transaction/:id", (req: Request, res: Response) => {
     res.status(200).send(modified);
 });
 
-app.use(express.static(path.join(__dirname, "../client/build")));
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../client/build")));
 
-// catch-all
-app.get("*", (_, res: Response) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-});
+    // catch-all
+    app.get("*", (_, res: Response) => {
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    });
+}
 
 app.listen(port, () => {
     console.log(`server is listening on port ${port}`);
