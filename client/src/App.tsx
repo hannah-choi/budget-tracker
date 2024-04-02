@@ -7,7 +7,7 @@ import React from "react";
 import { useFetch } from "./hooks/useFetch/useFetch";
 
 function App() {
-    const { isPending, error, data: transactions } = useFetch("http://localhost:3001/transaction");
+    const { isLoading, error, data: transactions } = useFetch("http://localhost:3001/transaction");
     if (transactions) {
         console.log(transactions);
     }
@@ -24,7 +24,7 @@ function App() {
             <main>
                 <Switch>
                     <Route exact path='/'>
-                        {isPending && "Loading..."}
+                        {isLoading && "Loading..."}
                         {transactions && <MainPage transactions={transactions} />}
                     </Route>
                     <Route path='/create'>

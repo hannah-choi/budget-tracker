@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export const useFetch = (url: string) => {
     const [data, setData] = useState<any | null>(null);
-    const [isPending, setIsPending] = useState<boolean>(false);
+    const [isLoading, setisLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -15,12 +15,12 @@ export const useFetch = (url: string) => {
             })
             .then((data) => {
                 setData(data);
-                setIsPending(false);
+                setisLoading(false);
                 setError(null);
             })
             .catch((err) => {
                 const error = err as Error;
-                setIsPending(false);
+                setisLoading(false);
                 setError(error.message);
             });
         // return () => {
@@ -30,5 +30,5 @@ export const useFetch = (url: string) => {
 
     console.log(data);
 
-    return { data, isPending, error };
+    return { data, isLoading, error };
 };
