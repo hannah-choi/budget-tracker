@@ -1,6 +1,7 @@
 import React from "react";
 import { ListItem } from "../ListItem/ListItem";
 import { Link } from "react-router-dom";
+import { Transaction } from "../../models/types";
 
 type Props = {
     transactions: Transaction[];
@@ -8,20 +9,12 @@ type Props = {
     modifyHandler: (id: number) => void;
 };
 
-export type Transaction = {
-    id: number;
-    category: string;
-    amount: number;
-    description: string;
-    date: string;
-};
-
-export const List: React.FC<Props> = ({ transactions, deleteHandler, modifyHandler }) => {
+export const List: React.FC<Props> = ({ transactions }) => {
     return (
         <ul>
             {transactions.map((transaction) => (
                 <Link to={`/detail/${transaction.id}`}>
-                    <ListItem transaction={transaction} deleteHandler={deleteHandler} modifyHandler={modifyHandler} />
+                    <ListItem transaction={transaction} />
                 </Link>
             ))}
         </ul>

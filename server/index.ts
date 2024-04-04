@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import path from "path";
 import dotenv from "dotenv";
 import cors from "cors";
+import fs from "fs";
 import transactions from "./transactions.json";
 
 dotenv.config();
@@ -13,14 +14,28 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/transaction", (req: Request, res: Response) => {
+    console.log(req);
     res.status(200).json(transactions);
 });
 
 app.post("/transaction", (req: Request, res: Response) => {
-    console.log(req.body);
-    const newTransactions = { id: transactions.length + 1, ...req.body };
-    transactions.push(newTransactions);
-    res.status(201).send(newTransactions);
+    const newTransaction = {
+        amount: new Intl.NumberFormat("en-GB", { currency: "GBP", style: "currency" }).format(
+            parseInt(req.body.amount, 10)
+        ),
+        id: transactions.length + 1,
+        ...req.body
+    };
+    transactions.push(newTransaction);
+
+    fs.writeFile(path.join(__dirname, "transactions.json"), JSON.stringify(transactions, null, 2), (err) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send({ message: "Internal Server error" });
+        } else {
+            res.status(201).send(newTransaction);
+        }
+    });
 });
 
 app.delete("/transaction/:id", (req: Request, res: Response) => {

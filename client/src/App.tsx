@@ -1,16 +1,32 @@
 import "./App.css";
-import { BrowserRouter, Route, Link, NavLink, Switch } from "react-router-dom";
+import { BrowserRouter, Route, NavLink, Switch } from "react-router-dom";
 import { MainPage } from "./pages/MainPage/MainPage";
 import { Create } from "./pages/Create/Create";
 import { TransactionDetail } from "./pages/TransactionDetail/TransactionDetail";
-import React from "react";
-import { useFetch } from "./hooks/useFetch/useFetch";
+import React, { useEffect, useState } from "react";
+import { Transaction } from "./models/types";
+import { TransactionResponse } from "./models/Response";
+import { requestHandler } from "./services/requestHandler";
 
 function App() {
-    const { isLoading, error, data: transactions } = useFetch("http://localhost:3001/transaction");
-    if (transactions) {
-        console.log(transactions);
-    }
+    const [transactions, setTransactions] = useState<Transaction[] | null>(null);
+    const [isLoading, setisLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setisLoading(true);
+
+                const getTransactions = await requestHandler<TransactionResponse>("http://localhost:3001/transaction");
+                setTransactions(getTransactions);
+            } catch {
+                //trackException
+            } finally {
+                setisLoading(false);
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
         <BrowserRouter>
@@ -31,7 +47,7 @@ function App() {
                         <Create />
                     </Route>
                     <Route path='/detail/:id'>
-                        <TransactionDetail />
+                        {transactions && <TransactionDetail transactions={transactions} />}
                     </Route>
                 </Switch>
             </main>

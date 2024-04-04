@@ -1,5 +1,6 @@
 import React from "react";
-import { List, Transaction } from "../../components/List/List";
+import { List } from "../../components/List/List";
+import { Transaction } from "../../models/types";
 
 type Props = { transactions: Transaction[] };
 

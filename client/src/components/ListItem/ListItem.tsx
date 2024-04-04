@@ -1,15 +1,13 @@
 import React from "react";
 
 import styles from "./ListItem.module.css";
-import { Transaction } from "../List/List";
+import { Transaction } from "../../models/types";
 
 type Props = {
     transaction: Transaction;
-    deleteHandler: (id: number) => void;
-    modifyHandler: (id: number) => void;
 };
 
-export const ListItem: React.FC<Props> = ({ transaction, deleteHandler, modifyHandler }) => {
+export const ListItem: React.FC<Props> = ({ transaction }) => {
     const { id, category, description, date, amount } = transaction;
     return (
         <div className={styles.item}>
@@ -17,8 +15,6 @@ export const ListItem: React.FC<Props> = ({ transaction, deleteHandler, modifyHa
             <span>{amount}</span>
             <span>{description}</span>
             <span>{date}</span>
-            <button onClick={() => modifyHandler(id)}>modify</button>
-            <button onClick={() => deleteHandler(id)}>x</button>
         </div>
     );
 };
