@@ -14,7 +14,6 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/transaction", (req: Request, res: Response) => {
-    console.log(req);
     res.status(200).json(transactions);
 });
 

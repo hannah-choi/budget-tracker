@@ -9,23 +9,24 @@ import { TransactionResponse } from "./models/Response";
 import { requestHandler } from "./services/requestHandler";
 
 function App() {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [transactions, setTransactions] = useState<Transaction[] | null>(null);
-    const [isLoading, setisLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const getTransactions = async () => {
             try {
-                setisLoading(true);
-
-                const getTransactions = await requestHandler<TransactionResponse>("http://localhost:3001/transaction");
-                setTransactions(getTransactions);
+                setIsLoading(true);
+                const data = await requestHandler<TransactionResponse>(process.env.REACT_APP_TRANSACTION_API_URL!);
+                setTransactions(data);
             } catch {
-                //trackException
+                console.error("could not get the transactions");
+                //trackException(...)
             } finally {
-                setisLoading(false);
+                setIsLoading(false);
             }
         };
-        fetchData();
+
+        getTransactions();
     }, []);
 
     return (
